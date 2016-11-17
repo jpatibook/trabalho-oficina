@@ -1,0 +1,1 @@
+("6.6" ("dec72181c73629b697c40c0b95fb79868655e78f" . "2626f844eeb563b81b63058c3d6a316ae61aaf9a") #"/home/dell/\303\201rea de Trabalho/trabalho-oficina/constantes.rkt" (collects #"2htdp" #"image.rkt") (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt"))

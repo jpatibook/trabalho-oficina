@@ -14,11 +14,3 @@
 ;; teste de commit
 
 
-(define ALTURA 450)
-(define LARGURA 600)
-(define CENARIO (empty-scene LARGURA ALTURA))
-(define Y-ATIRADOR (- ALTURA 50))
-(define AVIAO(scale 0.5 (bitmap "aviao.png")))
-(define VELOCIDADE-ATIRADOR 10)
-(define VELOCIDADE-TIRO 15)
-(define IMG-TIRO(scale 0.05 (bitmap "tiro.png")))

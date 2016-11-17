@@ -12,16 +12,17 @@
 (provide (all-defined-out)) ;permite que outros arquivos importem deste
 
 
-;; EstadoMundo -> EstadoMundo
+;; atirador -> atirador
 ;; produz o próximo ...
 ;; !!!
-(define (tock estado) estado)    ;;protótipo
+(define (proximo-atirador atirador) atirador)    
 
 
-;; EstadoMundo -> Image
+;; atirador -> Image 
 ;; desenha ... 
 ;; !!!
-(define (desenha estado) empty-image)  ;;protótipo
+(define (desenha-atirador a)
+  (place-image AVIAO (atirador-x a) Y-ATIRADOR CENARIO))
 
 
 ;; EstadoMundo -> Boolean
@@ -31,12 +32,13 @@
 
 
 
-;; EstadoMundo KeyEvent -> EstadoMundo
+;; Atirador KeyEvent -> Atirador
 ;; quando tecla ... é pressionada produz ...  <apagar caso não precise usar>
-(define (trata-tecla estado ke)
-  (cond [(key=? ke " ") estado]
+(define (trata-tecla-atirador a ke)
+  (cond [(key=? ke "left") (make-atirador (-(atirador-x a)(atirador-dx a)) (atirador-dx a))]
+        [(key=? ke "right") (make-atirador (+(atirador-x a)(atirador-dx a)) (atirador-dx a))]
         [else
-         estado]))     ;;protótipo
+         a]))     
 
 
 ;; EstadoMundo Integer Integer MouseEvent -> EstadoMundo
@@ -45,3 +47,40 @@
 (cond [(mouse=? me "button-down") estado]
       [else
        estado]))    ;;protótipo
+
+
+;; tiro -> tiro
+;; produz o próximo ...
+;; !!!
+(define (proximo-tiro t)
+  (make-tiro (-(tiro-y t)(tiro-dy t)) (tiro-dy t) (tiro-x t)))
+
+
+
+;; tiro -> Image 
+;; desenha ... 
+;; !!!
+(define (desenha-tiro t)
+  (place-image IMG-TIRO (tiro-x t) (tiro-y t) CENARIO))
+
+
+;; jogo -> jogo
+(define (proximo-jogo j)
+  (make-jogo
+   (proximo-atirador (jogo-atirador j))
+   (proximo-tiro (jogo-tiro j))
+  ))
+;; jogo -> imagem
+(define (desenha-jogo j)
+  (place-image IMG-TIRO (tiro-x (jogo-tiro j)) (tiro-y (jogo-tiro j))
+               (desenha-atirador (jogo-atirador j))))
+
+;; jogo-> jogo
+(define (trata-tecla-jogo j ke)
+  (make-jogo
+   (trata-tecla-atirador (jogo-atirador j) ke)
+   (jogo-tiro j))
+  )
+
+
+  

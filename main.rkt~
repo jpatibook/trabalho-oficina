@@ -7,16 +7,14 @@
 
 (require 2htdp/universe)
 (require "jogo.rkt")   ;importa as funções definidas em "jogo.rkt" 
-(require "constantes.rkt") ;importa as constantes definidas no arquivo "constantes.rkt"
-(require "dados.rkt") ;importa as definições de dados definidas no arquivo "dados.rkt"
 
 ;; EstadoMundo -> EstadoMundo
 ;; inicie o mundo com (main ...)
 ;; 
 (define (main estado)
   (big-bang estado               ; EstadoMundo
-            (on-tick   proximo-jogo)     ; EstadoMundo -> EstadoMundo
-            (to-draw   desenha-jogo)  ; EstadoMundo -> Image
+            (on-tick   tock)     ; EstadoMundo -> EstadoMundo
+            (to-draw   desenha)  ; EstadoMundo -> Image
             (stop-when terminou?)      ; EstadoMundo -> Boolean
             (on-mouse  trata-mouse)      ; EstadoMundo Integer Integer MouseEvent -> EstadoMundo
-            (on-key    trata-tecla-jogo)))    ; EstadoMundo KeyEvent -> EstadoMundo
+            (on-key    trata-tecla)))    ; EstadoMundo KeyEvent -> EstadoMundo
